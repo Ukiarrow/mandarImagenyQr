@@ -1,0 +1,72 @@
+function showAlert(msj) {
+  navigator.notification.alert(
+    msj, // message
+    "UNAB", // title
+    "" // buttonName
+  );
+} //fin function mensaje.
+
+function scanCode() {
+  var user = document.getElementById("user").value;
+  cordova.plugins.barcodeScanner.scan(
+    function(result) {
+      showAlert(
+        "We got a barcode\n" +
+          "Result: " +
+          result.text +
+          "\n" +
+          "Format: " +
+          result.format +
+          "\n" +
+          "Cancelled: " +
+          result.cancelled
+      );
+    },
+    function(error) {
+      showAlert("Scanning failed: " + error);
+    },
+    {
+      preferFrontCamera: true, // iOS and Android
+      showFlipCameraButton: true, // iOS and Android
+      showTorchButton: true, // iOS and Android
+      torchOn: true, // Android, launch with the torch switched on (if available)
+      saveHistory: true, // Android, save scan history (default false)
+      prompt: "Place a barcode inside the scan area", // Android
+      resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+      formats: "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+      orientation: "landscape", // Android only (portrait|landscape), default unset so it rotates with the device
+      disableAnimations: true, // iOS
+      disableSuccessBeep: false // iOS and Android
+    }
+  );
+
+  $.ajax({
+    cache: false,
+    // puede ser GET, POST
+    type: "POST",
+    // Tipo de retorno
+    dataType: "html",
+    // pagina php que recibe la llamada
+    url: "http://72.14.183.67/ws/qetSrc/getSrc.php",
+    // datos, ej: $_POST['data']
+    data: {
+      user: user
+    },
+
+    // acciones cuando me retorna algo el PHP
+    success: function(msg) {
+      console.log(msg);
+      if (msg == "1") {
+        showAlert("Ha ocurrido un Error!");
+      } else {
+        //aca recibe el parametro .base64
+        $(".ImgQR").attr("src", msg);
+      }
+    },
+    // acciones cuando hay error en comunicacion el el php
+    error: function(xhr, status, msg2) {
+      //alert('4');
+      console.log(xhr);
+    }
+  });
+} //fin function
