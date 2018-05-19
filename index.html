@@ -33,18 +33,21 @@
      <div data-role="fieldcontain" style="text-align: center;">
     Ingrese Nombre usuario:<input id="user" placeholder="cfloress" name="user" type="text" class="ui-input-text ui-body-c"  />
      	<button class="observacionproducto"  type="button" value="Localesbutton" id="Localesbutton" data-role="none" onclick="clearCache();getImage();" style="width: 60%">Tomar Foto</button>
-		Ingrese Mensaje:<input id="mensj" placeholder="ingrese su mensaje" name="mensj" type="text"class="ui-input-text ui-body-c"/>
-			<button class="observacionproducto"  type="button" value="Localesbutton" id="Localesbutton" data-role="none" onclick="GeneraCodigoQR();" style="width: 60%">GeneraCodigoQR</button>
+		 <button class="observacionproducto2"  type="button" value="Localesbutton" id="Localesbutton2" data-role="none" onclick="GeneraCodigoQR();" style="width: 60%">GeneraCodigoQR</button>
+		Ingrese Nro Fono:<input id="fono" placeholder="+56998765432" name="fono" type="text" class="ui-input-text ui-body-c"  />
+		su mensaje:<input id="qr" placeholder=" Hola mundo, saludos. " name="mensajeSMS" type="text" class="ui-input-text ui-body-c" />
+		<button class="observacionproducto" type="button" value="Localesbutton" id="Localesbutton" data-role="none" onclick="sendSMS();" style="width: 60%">Enviar SMS</button>	
+		<input id="qr" type="button" placeholder="Leer código" onclick="scanCode();" value="" style="width: 90%;margin-top: 12px;">
 
 		<img style="display:none;width:120px;height:120px;" id="largeImage" src="" />
+		<img style="display:none;width:120px;height:120px;" id="ImgQR" src="" />
      </div>
 	<button class="botonlugares" value="Locales" data-role="none" onclick="enviaFoto();">Enviar Imagen</button>
-	<button class="botonlugares" value="gallery" data-role="none" onclick="clearCache();getImage(pictureSource.PHOTOLIBRARY);">Obtener Foto desde Galeria</button>
     </div>
 	</div>
 	
 	<div style="text-align: center;">
-		<input type="button" placeholder="Leer código" onclick="scanCode();" value="Leer Código Barra / QR" style="width: 90%;margin-top: 12px;">
+		
 	</div>
 </body>
 </html>

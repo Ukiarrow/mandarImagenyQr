@@ -30,9 +30,8 @@ function showAlert(msj)
 	function getImage(source)
 	{
 	    // Retrieve image file location from specified source
-		navigator.camera.getPicture(uploadPhoto, onFail, { quality: 50,
-    destinationType: Camera.DestinationType.DATA_URL, sourceType: source});	//destinationType: navigator.camera.DestinationType.FILE_URI
-
+		navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
+            destinationType: Camera.DestinationType.FILE_URI }); 
     }
 
     function onFail(message) {
@@ -53,9 +52,9 @@ function showAlert(msj)
 
     function GeneraCodigoQR()
     {
-        var user=document.getElementById('user').value;
-      var mensj=document.getElementById('mensj').value;
-      if(mensj=='' || user == '')
+      var user=document.getElementById('user').value;
+      var qr=document.getElementById('qr').value;
+      if(qr=='' || user == '')
       {
     	  showAlert('Debe Ingresar usuario y mensaje!');
       }
@@ -72,7 +71,7 @@ function showAlert(msj)
             // datos, ej: $_POST['data']
             data: {
                     user:user,
-                    mensj:mensj
+                    qr:qr
             },
 
                         /*beforeSend: function(){
@@ -111,8 +110,6 @@ function enviaFoto()
 	var user=document.getElementById('user').value;
 	//var foto=document.getElementById('largeImage');
 	var fotoSrc=document.getElementById('largeImage').src;
-
- 
 
 	if(user=='' || fotoSrc=='')
 	{
@@ -208,3 +205,26 @@ function enviaFoto()
         }
 }
 */
+function sendSMS()
+{
+  var fono = document.getElementById('fono').value;
+  var mensajeSMS = document.getElementById('qr').value;
+
+  if (fono == '' || mensajeSMS == '')
+  {
+	  showAlert('Debe Ingresar el Fono!');
+  }else
+  {
+    /* var textoURl = "y no tengo GPS Activado,";
+	   if(lat != 0){
+		  textoURl = "https://www.google.com/maps?q="+lat+","+lon;
+	  } */
+    
+    var textoURI = mensajeSMS;
+	 if(SMS) 
+	 {
+	   SMS.sendSMS(fono,mensajeSMS, function () { showAlert('Message sent successfully');}, function (e) { showAlert('Message Failed:' + e);});
+	 }
+	  
+  }
+}
